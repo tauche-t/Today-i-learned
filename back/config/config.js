@@ -1,4 +1,4 @@
-const dotenv = reqiure('dotenv');
+const dotenv = require('dotenv');
 
 dotenv.config();
 

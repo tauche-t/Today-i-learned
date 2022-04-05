@@ -1,19 +1,18 @@
 import axios from "axios";
 import { LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS } from "../reducer/user";
-import { all, fork, takeLatest, delay, put } from 'redux-saga/effects';
+import { all, fork, takeLatest, put, call } from 'redux-saga/effects';
 
 
-// function logInAPI() {
-//   return axios.post('/api/login');
-// }
+function signUpAPI(data) {
+  return axios.post('http://localhost:3065/user', data);
+}
 
 function* signUp(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    const result = yield call(signUpAPI, action.data);
     yield put({
       type: SIGN_UP_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);

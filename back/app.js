@@ -1,5 +1,11 @@
 const express = require('express');
 const db = require('./models');
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const app = express();
 
 db.sequelize.sync()
@@ -8,13 +14,11 @@ db.sequelize.sync()
   })
   .catch(console.error);
 
-const postRouter = require('./routes/post');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/post', postRouter);
-
-app.get('/', (req, res) => {
-  res.send('hello express');
-});
+app.use('/user', userRouter);
 
 app.listen(3065, () => {
   console.log('서버 실행 중');

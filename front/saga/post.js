@@ -1,5 +1,5 @@
 import axios from "axios";
-import { all, fork, takeLatest, put } from 'redux-saga/effects';
+import { all, fork, takeLatest, put, call } from 'redux-saga/effects';
 import { ADD_POST_FAILURE, ADD_POST_REQUEST, ADD_POST_SUCCESS } from "../reducer/post";
 
 // function logInAPI() {
