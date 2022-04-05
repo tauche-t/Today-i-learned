@@ -1,4 +1,4 @@
-module.exports = () => {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: {
       type: DataTypes.STRING(30),
@@ -18,7 +18,10 @@ module.exports = () => {
     collate: 'utf8_general_ci'
   });
 
-  User.associate = (db) => {};
+  User.associate = (db) => {
+    db.User.hasMany(db.Post);
+    db.User.hasMany(db.Comment);
+  };
 
   return User;
 }
