@@ -63,7 +63,7 @@ const Home = () => {
         <Col wide>
           <PostForm />
           { mainPosts?.map((post) => (
-            <PostContents key={post.id} />
+            <PostContents key={post.id} post={post} />
           ))}
         </Col>
         <Col></Col>

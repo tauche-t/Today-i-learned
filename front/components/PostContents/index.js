@@ -1,6 +1,6 @@
-const PostContents = () => {
+const PostContents = ({ post }) => {
   return (
-    <div>PostContents</div>
+    <div>{post.content}</div>
   );
 }
 
