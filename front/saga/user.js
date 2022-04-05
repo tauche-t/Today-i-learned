@@ -4,7 +4,7 @@ import { all, fork, takeLatest, put, call } from 'redux-saga/effects';
 
 
 function signUpAPI(data) {
-  return axios.post('http://localhost:3065/user', data);
+  return axios.post('/user', data);
 }
 
 function* signUp(action) {
@@ -23,13 +23,16 @@ function* signUp(action) {
   }
 }
 
+function logInAPI(data) {
+  return axios.post('/user/login', data);
+}
+
 function* logIn(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data);
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (error) {
     console.error(error);
@@ -40,10 +43,13 @@ function* logIn(action) {
   }
 }
 
+function logoutAPI(data) {
+  return axios.post('/user/logout');
+}
+
 function* logOut(action) {
   try {
-    // const result = yield call(logInAPI, action.data);
-    yield delay(1000);
+    yield call(logoutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
       data: null,
