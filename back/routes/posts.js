@@ -1,6 +1,6 @@
 const express = require('express');
 const { Op } = require('sequelize');
-const { Post, User } = require('../models');
+const { Post, User, Image, Comment } = require('../models');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
@@ -12,9 +12,19 @@ router.get('/', async (req, res, next) => {
     const posts = await Post.findAll({
       where,
       limit: 10,
-      order: [['createdAt', 'DESC']],
+      order: [
+        ['createdAt', 'DESC'],
+        [Comment, 'createdAt', 'DESC']  // 댓글 정렬
+      ],
       include: [{
         model: User,
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+        }],
+      }, {
+        model: Image,
       }],
     });
     res.status(200).json(posts);
