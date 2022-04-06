@@ -50,6 +50,22 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.get('/', async (req, res, next) => {
+  try {
+    if(req.user) {
+      const user  = await User.findOne({
+        where: { id: req.user.id }
+      });
+      res.status(200).json(user);
+    } else {
+      res.status(200).json(null);
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.post('/logout', (req, res) => {
   req.logout();
   req.session.destroy();

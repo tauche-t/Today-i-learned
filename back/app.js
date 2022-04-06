@@ -23,15 +23,16 @@ passportConfig();
 
 app.use(cors({
   origin: true,
+  credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser("todaysecret"));
 app.use(session({
   saveUninitialized: false,
   resave: false,
-  secret: process.env.COOKIE_SECRET
+  secret: "todaysecret"
 }));
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PostForm from '../components/PostForm';
 import PostContents from '../components/PostContents';
 import Profile from '../components/Profile';
-import { LOG_OUT_REQUEST } from '../reducer/user';
+import { LOAD_ME_REQUEST, LOG_OUT_REQUEST } from '../reducer/user';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -47,6 +47,13 @@ const SignBtn = styled.div`
 const Home = () => {
   const { me } = useSelector(state => state.user);
   const { mainPosts } = useSelector(state => state.post);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_ME_REQUEST,
+    });
+  }, []);
 
   return (
     <Wrapper>

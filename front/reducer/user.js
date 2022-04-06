@@ -9,6 +9,9 @@ const initialState = {
   LogOutLoading: false,
   LogOutDone: false,
   LogOutError: null,
+  loadMeLoading: false,
+  loadMeDone: false,
+  loadMeError: null,
 }
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
@@ -22,6 +25,10 @@ export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
+
+export const LOAD_ME_REQUEST = 'LOAD_ME_REQUEST';
+export const LOAD_ME_SUCCESS = 'LOAD_ME_SUCCESS';
+export const LOAD_ME_FAILURE = 'LOAD_ME_FAILURE';
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -83,6 +90,26 @@ const userReducer = (state = initialState, action) => {
         ...state,
         logOutLoading: false,
         logOutError: action.error,
+      }
+    case LOAD_ME_REQUEST:
+      return {
+        ...state,
+        loadMeLoading: true,
+        loadMeDone: false,
+        loadMeError: null,
+      }
+    case LOAD_ME_SUCCESS:
+      return {
+        ...state,
+        loadMeLoading: false,
+        loadMeDone: true,
+        me: action.data,
+      }
+    case LOAD_ME_FAILURE:
+      return {
+        ...state,
+        loadMeLoading: false,
+        loadMeError: action.error,
       }
     default:
       return state;
