@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ADD_COMMENT_REQUEST } from '../../reducer/post';
+import { ADD_COMMENT_REQUEST, REMOVE_POST_REQUEST } from '../../reducer/post';
 import { Comment, Post, PostCon, UserProfile, Wrapper } from './style';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,6 +33,13 @@ const PostContents = ({ post }) => {
     }
   }, [addCommentDone]);
 
+  const onClickRemove = useCallback(() => {
+    dispatch({
+      type: REMOVE_POST_REQUEST,
+      data: post.id,
+    });
+  }, []);
+
   return (
     <Wrapper>
       <Post>
@@ -42,6 +49,7 @@ const PostContents = ({ post }) => {
           <span className='userEmail'>{ `@${post.User.email.split('@')[0]}` }</span>
           <p className='contents'>{post.content}</p>
           <button onClick={onClickComment}>댓글</button>
+          <button onClick={onClickRemove}>제거</button>
         </PostCon>
       </Post>
       { comment ? (
