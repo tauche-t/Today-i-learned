@@ -40,6 +40,8 @@ export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
+export const REMOVE_IMAGE = 'REMOVE_IMAGE';
+
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST_REQUEST:
@@ -148,6 +150,11 @@ const postReducer = (state = initialState, action) => {
         ...state,
         uploadImagesLoading: false,
         uploadImagesError: action.error,
+      }
+    case REMOVE_IMAGE:
+      return {
+        ...state,
+        imagePaths: state.imagePaths.filter((v, i) => i !== action.data),
       }
     default:
       return state;

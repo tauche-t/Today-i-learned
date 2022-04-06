@@ -47,6 +47,7 @@ const PostContents = ({ post }) => {
         <PostCon>
           <span className='userNickname'>{ post.User.nickname }</span>
           <span className='userEmail'>{ `@${post.User.email.split('@')[0]}` }</span>
+          { post.Images[0] && <img src={`http://localhost:3065/${post.Images[0].src}`} alt={`http://localhost:3065/${post.Images[0].src}`} /> }
           <p className='contents'>{post.content}</p>
           <button onClick={onClickComment}>댓글</button>
           <button onClick={onClickRemove}>제거</button>
