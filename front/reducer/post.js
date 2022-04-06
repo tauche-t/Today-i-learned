@@ -13,7 +13,11 @@ const initialState = {
   loadPostsLoading: false,
   loadPostsDone: false,
   loadPostsError: null,
+  uploadImagesLoading: false,
+  uploadImagesDone: false,
+  uploadImagesError: null,
   hasMorePost: false,
+  imagePaths: [],
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -31,6 +35,10 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
+
+export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
+export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
+export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -120,6 +128,26 @@ const postReducer = (state = initialState, action) => {
         ...state,
         loadPostsLoading: false,
         loadPostsError: action.error,
+      }
+    case UPLOAD_IMAGES_REQUEST:
+      return {
+        ...state,
+        uploadImagesLoading: true,
+        uploadImagesDone: false,
+        uploadImagesError: null,
+      }
+    case UPLOAD_IMAGES_SUCCESS:
+      return {
+        ...state,
+        uploadImagesLoading: false,
+        uploadImagesDone: true,
+        imagePaths: action.data,
+      }
+    case UPLOAD_IMAGES_FAILURE:
+      return {
+        ...state,
+        uploadImagesLoading: false,
+        uploadImagesError: action.error,
       }
     default:
       return state;

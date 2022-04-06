@@ -4,6 +4,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const db = require('./models');
+const path = require('path');
 
 const passportConfig = require('./passport');
 
@@ -25,6 +26,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cookieParser("todaysecret"));
 app.use(session({
