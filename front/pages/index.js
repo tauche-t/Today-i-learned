@@ -6,6 +6,7 @@ import PostForm from '../components/PostForm';
 import PostContents from '../components/PostContents';
 import Profile from '../components/Profile';
 import { LOAD_ME_REQUEST, LOG_OUT_REQUEST } from '../reducer/user';
+import { LOAD_POSTS_REQUEST } from '../reducer/post';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -48,12 +49,37 @@ const Home = () => {
   const { me } = useSelector(state => state.user);
   const { mainPosts } = useSelector(state => state.post);
   const dispatch = useDispatch();
+  const { loadPostsLoading } = useSelector(state => state.post);
+  const { hasMorePost } = useSelector(state => state.post);
 
   useEffect(() => {
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
+    });
+
     dispatch({
       type: LOAD_ME_REQUEST,
     });
   }, []);
+
+  useEffect(() => {
+    function onScroll() {
+      if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300) {
+        if(hasMorePost && !loadPostsLoading) {
+          const lastId = mainPosts[mainPosts.length - 1]?.id;
+          dispatch({
+            type: LOAD_POSTS_REQUEST,
+            lastId,
+          });
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    }
+  }, [hasMorePost]);
 
   return (
     <Wrapper>

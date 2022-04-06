@@ -4,8 +4,6 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const db = require('./models');
-const postRouter = require('./routes/post');
-const userRouter = require('./routes/user');
 
 const passportConfig = require('./passport');
 
@@ -37,8 +35,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
+const postsRouter = require('./routes/posts');
+
 app.use('/post', postRouter);
 app.use('/user', userRouter);
+app.use('/posts', postsRouter);
 
 app.listen(3065, () => {
   console.log('서버 실행 중');

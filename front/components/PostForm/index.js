@@ -1,13 +1,24 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Textarea } from "./style";
 import useInput from '../../hooks/useInput';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_POST_REQUEST } from '../../reducer/post';
 
 const PostForm = () => {
-  const [text, onChangeText] = useInput("");
+  const [text, setText] = useState("");
   const imageInput = useRef(null);
   const dispatch = useDispatch();
+  const { addPostDone } = useSelector(state => state.post);
+
+  const onChangeText = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
+
+  useEffect(() => {
+    if(addPostDone) {
+      setText("");
+    }
+  }, [addPostDone]);
 
   const onSubmitPost = useCallback((e) => {
     e.preventDefault();
