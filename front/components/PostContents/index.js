@@ -6,6 +6,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { FaCommentDots, FaRegCommentDots } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 import CommentContents from '../CommentContents';
+import PostImages from '../PostImages';
 
 const PostContents = ({ post }) => {
   const [comment, setComment] = useState(false);
@@ -66,7 +67,8 @@ const PostContents = ({ post }) => {
           </div>
           { post.Images[0] &&
             <div className='postImg'>
-              <img src={`http://localhost:3065/${post.Images[0].src}`} alt={`http://localhost:3065/${post.Images[0].src}`} />
+              {/* <img src={`http://localhost:3065/${post.Images[0].src}`} alt={`http://localhost:3065/${post.Images[0].src}`} /> */}
+              <PostImages images={post.Images} />
             </div>
           }
 

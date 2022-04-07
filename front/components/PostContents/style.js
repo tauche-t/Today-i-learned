@@ -56,6 +56,7 @@ export const PostCon = styled.div`
         max-width: 500px;
         width: 100%;
         height: auto;
+        cursor: pointer;
       }
   }
 
@@ -67,7 +68,7 @@ export const PostCon = styled.div`
 
 export const BtnWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 
   button {
     border: 0;
