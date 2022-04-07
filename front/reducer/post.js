@@ -16,7 +16,7 @@ const initialState = {
   uploadImagesLoading: false,
   uploadImagesDone: false,
   uploadImagesError: null,
-  hasMorePost: false,
+  hasMorePost: true,
   imagePaths: [],
 }
 
@@ -123,7 +123,7 @@ const postReducer = (state = initialState, action) => {
         loadPostsLoading: false,
         loadPostsDone: true,
         mainPosts: state.mainPosts.concat(action.data),
-        hasMorePosts: action.data.length === 10,
+        hasMorePost: action.data.length === 10,
       }
     case LOAD_POSTS_FAILURE:
       return {

@@ -16,7 +16,7 @@ const LogIn = () => {
 
   useEffect(() => {
     if(logInDone) {
-      router.push('/');
+      router.replace('/');
     }
   }, [logInDone]);
 

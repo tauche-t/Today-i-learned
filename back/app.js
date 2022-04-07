@@ -29,11 +29,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', express.static(path.join(__dirname, 'uploads')));
 
-app.use(cookieParser("todaysecret"));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   saveUninitialized: false,
   resave: false,
-  secret: "todaysecret"
+  secret: process.env.COOKIE_SECRET
 }));
 app.use(passport.initialize());
 app.use(passport.session());

@@ -19,7 +19,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if(signUpDone) {
-      router.push('/logIn');
+      router.replace('/logIn');
       alert('가입을 축하드립니다!');
     }
   }, [signUpDone]);

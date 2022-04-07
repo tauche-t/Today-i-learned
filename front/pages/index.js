@@ -53,9 +53,11 @@ const Home = () => {
   const { hasMorePost } = useSelector(state => state.post);
 
   useEffect(() => {
-    dispatch({
-      type: LOAD_POSTS_REQUEST,
-    });
+    if(hasMorePost) {
+      dispatch({
+        type: LOAD_POSTS_REQUEST,
+      });
+    }
 
     dispatch({
       type: LOAD_ME_REQUEST,
@@ -79,7 +81,7 @@ const Home = () => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     }
-  }, [hasMorePost]);
+  }, [hasMorePost, loadPostsLoading, mainPosts]);
 
   return (
     <Wrapper>
