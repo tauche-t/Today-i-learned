@@ -26,9 +26,12 @@ const Col = styled.div`
   margin: 0 25px;
 `;
 
-const Logo = styled.div`
-  font-size: 24px;
+const Logo = styled.h1`
+  font-size: 26px;
   text-align: center;
+  font-weight: 700;
+  color: #495057;
+  margin: 0;
 `
 
 const SignBtn = styled.div`
@@ -87,7 +90,7 @@ const Home = () => {
     <Wrapper>
       <Row>
         <Col>
-          <Logo>Today i learned</Logo>
+          <Logo>Today I learned</Logo>
           { me ? <Profile /> : (
             <SignBtn>
               <Link href="/signUp"><a>Sign Up</a></Link>

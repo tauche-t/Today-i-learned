@@ -1,11 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ADD_COMMENT_REQUEST, REMOVE_POST_REQUEST } from '../../reducer/post';
-import { Comment, Post, PostCon, UserProfile, Wrapper } from './style';
+import { BtnWrap, Comment, Post, PostCon, UserProfile, Wrapper } from './style';
 import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { FaCommentDots, FaRegCommentDots } from 'react-icons/fa';
+import { FiSend } from 'react-icons/fi';
+import CommentContents from '../CommentContents';
 
 const PostContents = ({ post }) => {
   const [comment, setComment] = useState(false);
   const [commentText, setCommentText] = useState("");
+  const [focus, setFocus] = useState(false);
   const dispatch = useDispatch();
   const id = useSelector(state => state.user.me?.id);
   const { addCommentDone } = useSelector(state => state.post);
@@ -40,27 +45,51 @@ const PostContents = ({ post }) => {
     });
   }, []);
 
+  const onFocus = useCallback(() => {
+    setFocus(true);
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setFocus(false);
+  }, []);
+
+  // console.log(post.content.split(/\r\n|\r\n/).join("<br />"));
+
   return (
     <Wrapper>
       <Post>
         <UserProfile>{ post.User.nickname[0] }</UserProfile>
         <PostCon>
-          <span className='userNickname'>{ post.User.nickname }</span>
-          <span className='userEmail'>{ `@${post.User.email.split('@')[0]}` }</span>
-          { post.Images[0] && <img src={`http://localhost:3065/${post.Images[0].src}`} alt={`http://localhost:3065/${post.Images[0].src}`} /> }
+          <div className="userInfo">
+            <span className='userNickname'>{ post.User.nickname }</span>
+            <span className='userEmail'>{ `@${post.User.email.split('@')[0]}` }</span>
+          </div>
+          { post.Images[0] &&
+            <div className='postImg'>
+              <img src={`http://localhost:3065/${post.Images[0].src}`} alt={`http://localhost:3065/${post.Images[0].src}`} />
+            </div>
+          }
+
           <p className='contents'>{post.content}</p>
-          <button onClick={onClickComment}>댓글</button>
-          <button onClick={onClickRemove}>제거</button>
+
+          <BtnWrap>
+            <button className="commentIcon" onClick={onClickComment}>
+              { comment ? <FaCommentDots /> : <FaRegCommentDots />}
+            </button>
+            <button className="deleteIcon" onClick={onClickRemove}>
+              <AiOutlineDelete />            
+            </button>
+          </BtnWrap>
         </PostCon>
       </Post>
       { comment ? (
         <Comment>
           <form onSubmit={onSubmitComment}>
-            <textarea value={commentText} onChange={onChangeComment}></textarea>
-            <button type="submit">게시</button>
+            <textarea value={commentText} onFocus={onFocus} onBlur={onBlur} onChange={onChangeComment} maxLength={110}></textarea>
+            <button type="submit" className={ focus && "focus" }><FiSend /></button>
           </form>
-          { post.Comments.map((comment) => (
-            <p>{comment.content}</p>
+          { post.Comments.map((comment, i) => (
+            <CommentContents key={comment.content + i} comment={comment} />
           )) }
         </Comment>
       ) : null }

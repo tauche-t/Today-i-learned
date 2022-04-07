@@ -84,7 +84,7 @@ router.post('/:postId/comment', isLoggedIn, async (req, res) => {
       where: { id: comment.id },
       include: [{
         model: User,
-        attributes: ['id', 'nickname'],
+        attributes: ['id', 'nickname', 'email'],
       }],
     });
 
