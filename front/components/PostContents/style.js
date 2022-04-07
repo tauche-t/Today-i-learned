@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 20px 0 10px;
   border-bottom: 1px solid #e9ecef;
+  /* margin-top: 20px; */
 `;
 
 export const Post = styled.div`

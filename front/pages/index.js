@@ -12,6 +12,18 @@ const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 50px 100px;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 70%;
+    height: 1px;
+    background: #e9ecef;
+    position: absolute;
+    left: 397px;
+    top: 70px;
+  }
 `;
 
 const Row = styled.div`
@@ -24,6 +36,7 @@ const Col = styled.div`
   width: ${props => props.wide ? '970px' : '325px'};
   height: 100%;
   margin: 0 25px;
+  margin-top: ${props => props.wide && '56px'}
 `;
 
 const Logo = styled.h1`
@@ -99,7 +112,7 @@ const Home = () => {
           )}
         </Col>
         <Col wide>
-          <PostForm />
+          {/* <PostForm /> */}
           { mainPosts?.map((post) => (
             <PostContents key={post.id} post={post} />
           ))}
