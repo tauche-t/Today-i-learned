@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_ME_FAILURE, LOAD_ME_REQUEST, LOAD_ME_SUCCESS, LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS } from "../reducer/user";
+import { CHANGE_NICKNAME_FAILURE, CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, LOAD_ME_FAILURE, LOAD_ME_REQUEST, LOAD_ME_SUCCESS, LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS } from "../reducer/user";
 import { all, fork, takeLatest, put, call } from 'redux-saga/effects';
 
 
@@ -83,6 +83,26 @@ function* loadMe(action) {
   }
 }
 
+function changeNicknameAPI(data) {
+  return axios.patch('/user/nickname', { nickname: data });
+}
+
+function* changeNickname(action) {
+  try {
+    const result = yield call(changeNicknameAPI, action.data);
+    yield put({
+      type: CHANGE_NICKNAME_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: CHANGE_NICKNAME_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
+
 function* watchSignup() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
@@ -99,11 +119,16 @@ function* watchLoadUser() {
   yield takeLatest(LOAD_ME_REQUEST, loadMe);
 }
 
+function* watchChangeNickname() {
+  yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchSignup),
     fork(watchLogin),
     fork(watchLogout),
     fork(watchLoadUser),
+    fork(watchChangeNickname),
   ]);
 }

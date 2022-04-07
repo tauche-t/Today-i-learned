@@ -43,6 +43,40 @@ export const MyProfile = styled.div`
   margin: 30px 0 20px;
 `;
 
+export const InfoWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .modifyInput {
+    outline: 0;
+    border: 0;
+    border-bottom: 1px solid #a5d8ff;
+    /* width: 50%; */
+  }
+
+  .modifyConfirmBtn {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  .modify {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin-right: -40px;
+    margin-left: 20px;
+    margin-top: -15px;
+    font-size: 20px;
+    color: #adb5bd;
+    cursor: pointer;
+  }
+`;
+
 export const MyNickname = styled.div`
   font-weight: 700;
   font-size: 24px;

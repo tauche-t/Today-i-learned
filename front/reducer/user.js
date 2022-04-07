@@ -12,6 +12,9 @@ const initialState = {
   loadMeLoading: false,
   loadMeDone: false,
   loadMeError: null,
+  changeNicknameLoading: false,
+  changeNicknameDone: false,
+  changeNicknameError: null,
 }
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
@@ -29,6 +32,10 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const LOAD_ME_REQUEST = 'LOAD_ME_REQUEST';
 export const LOAD_ME_SUCCESS = 'LOAD_ME_SUCCESS';
 export const LOAD_ME_FAILURE = 'LOAD_ME_FAILURE';
+
+export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
+export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
+export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -110,6 +117,29 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loadMeLoading: false,
         loadMeError: action.error,
+      }
+    case CHANGE_NICKNAME_REQUEST:
+      return {
+        ...state,
+        changeNicknameLoading: true,
+        changeNicknameDone: false,
+        changeNicknameError: null,
+      }
+    case CHANGE_NICKNAME_SUCCESS:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameDone: true,
+        me: {
+          ...state.me,
+          nickname: action.data.nickname
+        },
+      }
+    case CHANGE_NICKNAME_FAILURE:
+      return {
+        ...state,
+        changeNicknameLoading: false,
+        changeNicknameError: action.error,
       }
     default:
       return state;
