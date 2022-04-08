@@ -5,6 +5,7 @@ import { FormBox, InfoWrap, MyEmail, MyNickname, MyProfile, Overlay, Wrapper, Wr
 import { BiLogOut, BiPencil } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import PostForm from '../PostForm';
+import ToDoForm from '../ToDoForm';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Profile = () => {
   const [writeNickname, setWriteNickname] = useState("");
   const { changeNicknameDone } = useSelector(state => state.user);
   const [writeOpen, setWriteOpen] = useState(false);
+  const [toDoOpen, setToDoOpen] = useState(false);
 
   const onClickLogOut = useCallback(() => {
     dispatch({
@@ -50,6 +52,14 @@ const Profile = () => {
     setWriteOpen(false);
   }, []);
 
+  const onClickToDo = useCallback(() => {
+    setToDoOpen(true);
+  }, []);
+
+  const onClickCancelToDo = useCallback(() => {
+    setToDoOpen(false);
+  }, []);
+
   return (
     <Wrapper>
       <MyProfile>{ me.nickname[0] }</MyProfile>
@@ -68,7 +78,7 @@ const Profile = () => {
       <button className="logOut" onClick={onClickLogOut}><BiLogOut /></button>
       <WriteBtn>
         <button onClick={onClickWrite}>글쓰기</button>
-        <button>공부 목록 작성</button>
+        <button onClick={onClickToDo}>공부 목록 작성</button>
       </WriteBtn>
 
       { writeOpen ? (
@@ -76,6 +86,15 @@ const Profile = () => {
           <FormBox>
             <PostForm />
             <div className="cancel" onClick={onClickCancel}>취소</div>
+          </FormBox>
+        </Overlay>
+      ) : null }
+
+    { toDoOpen ? (
+        <Overlay>
+          <FormBox>
+            <ToDoForm open={setToDoOpen} />
+            <div className="cancel" onClick={onClickCancelToDo}>취소</div>
           </FormBox>
         </Overlay>
       ) : null }

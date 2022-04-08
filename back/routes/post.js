@@ -1,5 +1,5 @@
 const express = require('express');
-const { Post, Image, Comment, User } = require('../models');
+const { Post, Image, Comment, User, Todo } = require('../models');
 const { isLoggedIn } = require('./middlewares');
 const multer = require('multer');
 const path = require('path');
@@ -30,6 +30,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const post = await Post.create({
       content: req.body.content,
+      todos: req.body.todos,
       UserId: req.user.id,
     });
 

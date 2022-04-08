@@ -18,6 +18,10 @@ const initialState = {
   uploadImagesError: null,
   hasMorePost: true,
   imagePaths: [],
+  addToDoLoading: false,
+  addToDoDone: false,
+  addToDoError: null,
+  toDos: false,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -42,6 +46,11 @@ export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 export const WRITE_FORM = 'WRITE_FORM';
+export const TODOS = 'TODOS';
+
+export const ADD_TODO_REQUEST = 'ADD_TODO_REQUEST';
+export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
+export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -58,6 +67,7 @@ const postReducer = (state = initialState, action) => {
         addPostLoading: false,
         addPostDone: true,
         mainPosts: [action.data, ...state.mainPosts],
+        toDos: false,
       }
     case ADD_POST_FAILURE:
       return {
@@ -156,6 +166,31 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         imagePaths: state.imagePaths.filter((v, i) => i !== action.data),
+      }
+    case TODOS:
+      return {
+        ...state,
+        toDos: true,
+      }
+    case ADD_TODO_REQUEST:
+      return {
+        ...state,
+        addToDoLoading: true,
+        addToDoDone: false,
+        addToDoError: null,
+      }
+    case ADD_TODO_SUCCESS:
+      return {
+        ...state,
+        addToDoLoading: false,
+        addToDoDone: true,
+        mainPosts: [action.data, ...state.mainPosts],
+      }
+    case ADD_TODO_FAILURE:
+      return {
+        ...state,
+        addToDoLoading: false,
+        addToDoError: action.error,
       }
     default:
       return state;

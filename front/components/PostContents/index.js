@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ADD_COMMENT_REQUEST, REMOVE_POST_REQUEST } from '../../reducer/post';
-import { BtnWrap, Comment, Post, PostCon, UserProfile, Wrapper } from './style';
+import { BtnWrap, Comment, Post, PostCon, ToDos, UserProfile, Wrapper } from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { FaCommentDots, FaRegCommentDots } from 'react-icons/fa';
@@ -15,6 +15,7 @@ const PostContents = ({ post }) => {
   const dispatch = useDispatch();
   const id = useSelector(state => state.user.me?.id);
   const { addCommentDone } = useSelector(state => state.post);
+  const [complete, setComplete] = useState(false);
 
   const onClickComment = useCallback(() => {
     setComment(prev => !prev);
@@ -56,6 +57,14 @@ const PostContents = ({ post }) => {
 
   // console.log(post.content.split(/\r\n|\r\n/).join("<br />"));
 
+  const onClickToDo = useCallback((e) => {
+    // setComplete(prev => !prev);
+    // console.log(e.target.attributes.getNamedItem('done').value);
+
+
+    e.target.classList.toggle('complete');
+  }, [complete]);
+
   return (
     <Wrapper>
       <Post>
@@ -72,7 +81,15 @@ const PostContents = ({ post }) => {
             </div>
           }
 
-          <p className='contents'>{post.content}</p>
+          {post.content ? (
+            <p className='contents'>{post.content}</p>
+          ) : (
+            <ToDos>
+              {JSON.parse(post.todos).map((v, i) => (
+                <li onClick={onClickToDo} key={v + i}>{v}</li>
+              ))}
+            </ToDos>
+          )}
 
           <BtnWrap>
             <button className="commentIcon" onClick={onClickComment}>

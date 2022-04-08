@@ -139,3 +139,35 @@ export const Comment = styled.div`
     }
   }
 `;
+
+export const ToDos = styled.ul`
+  list-style: none;
+  padding-left: 30px;
+  margin-top: 25px;
+
+  li {
+    position: relative;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #adb5bd;
+      position: absolute;
+      left: -30px;
+      top: 1px;
+      border-radius: 50%;
+    }
+
+    &.complete {
+      color: #ced4da;
+
+      &:before {
+        background: #74c0fc;
+      }
+    }
+  }
+`;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { all, fork, takeLatest, put, call } from 'redux-saga/effects';
-import { ADD_COMMENT_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_POST_FAILURE, ADD_POST_REQUEST, ADD_POST_SUCCESS, LOAD_POSTS_FAILURE, LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, REMOVE_POST_FAILURE, REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, UPLOAD_IMAGES_FAILURE, UPLOAD_IMAGES_REQUEST, UPLOAD_IMAGES_SUCCESS } from "../reducer/post";
+import { ADD_COMMENT_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_POST_FAILURE, ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_TODO_FAILURE, ADD_TODO_REQUEST, ADD_TODO_SUCCESS, LOAD_POSTS_FAILURE, LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, REMOVE_POST_FAILURE, REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, UPLOAD_IMAGES_FAILURE, UPLOAD_IMAGES_REQUEST, UPLOAD_IMAGES_SUCCESS } from "../reducer/post";
 
 function addPostAPI(data) {
   return axios.post('/post', data);
@@ -102,6 +102,26 @@ function* uploadImages(action) {
   }
 }
 
+function addToDoAPI(data) {
+  return axios.post('/post/todo', { todo: data });
+}
+
+function* addToDo(action) {
+  try {
+    const result = yield call(addToDoAPI, action.data);
+    yield put({
+      type: ADD_TODO_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: ADD_TODO_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
+
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
@@ -122,6 +142,10 @@ function* watchUploadImages() {
   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
 
+function* watchAddToDo() {
+  yield takeLatest(ADD_TODO_REQUEST, addToDo);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
@@ -129,5 +153,6 @@ export default function* postSaga() {
     fork(watchAddComment),
     fork(watchLoadPosts),
     fork(watchUploadImages),
+    fork(watchAddToDo),
   ]);
 }

@@ -66,7 +66,7 @@ const Home = () => {
   const { mainPosts } = useSelector(state => state.post);
   const dispatch = useDispatch();
   const { loadPostsLoading } = useSelector(state => state.post);
-  const { hasMorePost } = useSelector(state => state.post);
+  const { hasMorePost, toDos } = useSelector(state => state.post);
 
   useEffect(() => {
     if(hasMorePost) {
