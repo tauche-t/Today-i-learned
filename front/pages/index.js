@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PostForm from '../components/PostForm';
@@ -36,7 +36,7 @@ const Col = styled.div`
   width: ${props => props.wide ? '970px' : '325px'};
   height: 100%;
   margin: 0 25px;
-  margin-top: ${props => props.wide && '56px'}
+  margin-top: ${props => props.wide && '56px'};
 `;
 
 const Logo = styled.h1`

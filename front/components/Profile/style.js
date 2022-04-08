@@ -1,23 +1,10 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  button {
-    margin: 30px 0;
-    margin-left: 25px;
-    border: 0;
-    outline: 0;
-    background: none;
-    font-size: 14px;
-    padding: 5px 20px;
-    border: 1px solid #339af0;
-    border-radius: 35px;
-    color: #339af0;
-  }
 
   .logOut {
     margin: 0;
@@ -26,6 +13,7 @@ export const Wrapper = styled.div`
     font-size: 27px;
     margin-top: 10px;
     cursor: pointer;
+    background: none;
   }
 `;
 
@@ -62,6 +50,8 @@ export const InfoWrap = styled.div`
     padding: 0;
     margin-left: 5px;
     cursor: pointer;
+    background: none;
+    color: #339af0;
   }
 
   .modify {
@@ -73,6 +63,7 @@ export const InfoWrap = styled.div`
     margin-top: -15px;
     font-size: 20px;
     color: #adb5bd;
+    background: none;
     cursor: pointer;
   }
 `;
@@ -94,6 +85,20 @@ export const WriteBtn = styled.div`
   align-items: center;
   position: relative;
 
+  button {
+    margin: 30px 0;
+    margin-left: 25px;
+    border: 0;
+    outline: 0;
+    background: none;
+    font-size: 14px;
+    padding: 5px 20px;
+    border: 1px solid #339af0;
+    border-radius: 35px;
+    color: #339af0;
+    cursor: pointer;
+  }
+
   &:before {
     content: '';
     display: block;
@@ -104,5 +109,62 @@ export const WriteBtn = styled.div`
     left: 53%;
     transform: translateX(-50%);
     top: 7px;
+  }
+`;
+
+const animation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+export const Overlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .close {
+    color: #fff;
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    font-size: 30px;
+  }
+`;
+
+export const FormBox = styled.div`
+  width: 800px;
+  height: 430px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  box-sizing: border-box;
+  padding: 0 55px;
+  border-radius: 10px;
+  animation: ${animation} 0.7s 1;
+
+  .cancel {
+    border: 2px solid #ffa8a8;
+    border-radius: 25px;
+    padding: 4px 20px;
+    font-size: 14px;
+    color: #ffa8a8;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 35px;
   }
 `;

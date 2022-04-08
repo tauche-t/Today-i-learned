@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Textarea } from "./style";
+import { Form, Textarea } from "./style";
 import useInput from '../../hooks/useInput';
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducer/post';
+import { FiSend, FiImage } from 'react-icons/fi';
 
 const PostForm = () => {
   const [text, setText] = useState("");
   const imageInput = useRef(null);
   const dispatch = useDispatch();
   const { addPostDone, imagePaths } = useSelector(state => state.post);
+  const [focus, setFocus] = useState(false);
 
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
@@ -19,6 +21,14 @@ const PostForm = () => {
       setText("");
     }
   }, [addPostDone]);
+  
+  const onFocus = useCallback(() => {
+    setFocus(true);
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setFocus(false);
+  }, []);
 
   const onSubmitPost = useCallback((e) => {
     e.preventDefault();
@@ -62,12 +72,12 @@ const PostForm = () => {
   }, []);
 
   return (
-    <form onSubmit={onSubmitPost} encType="multipart/form-data">
-      <Textarea value={text} onChange={onChangeText} maxLength={140} placeholder="오늘 어떤 공부를 하셨나요?"></Textarea>
+    <Form onSubmit={onSubmitPost} encType="multipart/form-data">
+      <Textarea value={text} onChange={onChangeText} onFocus={onFocus} onBlur={onBlur} maxLength={140} placeholder="오늘 어떤 공부를 하셨나요?"></Textarea>
       <div>
         <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
-        <button onClick={onClickImageUpload}>이미지 업로드</button>
-        <button type="submit">게시</button>
+        <button onClick={onClickImageUpload} className="imageUploadBtn"><FiImage /></button>
+        <button type="submit" className={ focus ? "focus" : "" }><FiSend /></button>
       </div>
       <div>
         {imagePaths.map((v, i) => (
@@ -79,7 +89,7 @@ const PostForm = () => {
           </div>
         ))}
       </div>
-    </form>
+    </Form>
   );
 }
 

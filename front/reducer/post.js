@@ -41,6 +41,7 @@ export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
+export const WRITE_FORM = 'WRITE_FORM';
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
