@@ -8,6 +8,9 @@ import Profile from '../components/Profile';
 import { LOAD_ME_REQUEST, LOAD_USER_REQUEST, LOG_OUT_REQUEST } from '../reducer/user';
 import { LOAD_POSTS_REQUEST } from '../reducer/post';
 import UserMembers from '../components/UserMembers';
+import wrapper from '../store/configureStore';
+import { END } from 'redux-saga';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -73,21 +76,21 @@ const Home = () => {
   const dispatch = useDispatch();
   const { mainPosts, hasMorePost, toDos, loadPostsLoading } = useSelector(state => state.post);
 
-  useEffect(() => {
-    if(hasMorePost) {
-      dispatch({
-        type: LOAD_POSTS_REQUEST,
-      });
-    }
+  // useEffect(() => {
+  //   if(hasMorePost) {
+  //     dispatch({
+  //       type: LOAD_POSTS_REQUEST,
+  //     });
+  //   }
 
-    dispatch({
-      type: LOAD_USER_REQUEST,
-    });
+  //   dispatch({
+  //     type: LOAD_USER_REQUEST,
+  //   });
 
-    dispatch({
-      type: LOAD_ME_REQUEST,
-    });
-  }, []);
+  //   dispatch({
+  //     type: LOAD_ME_REQUEST,
+  //   });
+  // }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -139,6 +142,28 @@ const Home = () => {
   );
 }
 
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req }) => {
+  const cookie = req ? req.headers.cookie : '';
+  axios.defaults.headers.Coolie = '';
 
+  if (req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+
+  store.dispatch({
+    type: LOAD_ME_REQUEST,
+  });
+
+  store.dispatch({
+    type: LOAD_POSTS_REQUEST,
+  });
+
+  store.dispatch({
+    type: LOAD_USER_REQUEST,
+  });
+
+  store.dispatch(END);
+  await store.sagaTask.toPromise();
+});
 
 export default Home;
