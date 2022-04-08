@@ -49,19 +49,19 @@ router.post('/', isNotLoggedIn, async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 11);
-    await User.create({
+    const users = await User.create({
       email: req.body.email,
       nickname: req.body.nickname,
       password: hashedPassword,
     });
-    res.status(200).send('ok');
+    res.status(200).send(users);
   } catch (error) {
     console.error(error);
     next(error);
   }
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/me', async (req, res, next) => {
   try {
     if(req.user) {
       const user  = await User.findOne({
@@ -75,6 +75,18 @@ router.get('/', async (req, res, next) => {
     } else {
       res.status(200).json(null);
     }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get('/', async (req, res, next) => {
+  try {
+    const users  = await User.findAll({
+      attributes: ['id', 'nickname', 'email'],
+    });
+    res.status(200).json(users);
   } catch (error) {
     console.error(error);
     next(error);

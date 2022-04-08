@@ -1,4 +1,5 @@
 const initialState = {
+  users: null,
   me: null,
   signUpLoading: false,
   signUpDone: false,
@@ -12,6 +13,9 @@ const initialState = {
   loadMeLoading: false,
   loadMeDone: false,
   loadMeError: null,
+  loadUserLoading: false,
+  loadUserDone: false,
+  loadUserError: null,
   changeNicknameLoading: false,
   changeNicknameDone: false,
   changeNicknameError: null,
@@ -33,6 +37,10 @@ export const LOAD_ME_REQUEST = 'LOAD_ME_REQUEST';
 export const LOAD_ME_SUCCESS = 'LOAD_ME_SUCCESS';
 export const LOAD_ME_FAILURE = 'LOAD_ME_FAILURE';
 
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
+
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
 export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
@@ -51,6 +59,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         signUpLoading: false,
         signUpDone: true,
+        users: action.data,
       }
     case SIGN_UP_FAILURE:
       return {
@@ -117,6 +126,26 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loadMeLoading: false,
         loadMeError: action.error,
+      }
+    case LOAD_USER_REQUEST:
+      return {
+        ...state,
+        loadUserLoading: true,
+        loadUserDone: false,
+        loadUserError: null,
+      }
+    case LOAD_USER_SUCCESS:
+      return {
+        ...state,
+        loadUserLoading: false,
+        loadUserDone: true,
+        users: action.data,
+      }
+    case LOAD_USER_FAILURE:
+      return {
+        ...state,
+        loadUserLoading: false,
+        loadUserError: action.error,
       }
     case CHANGE_NICKNAME_REQUEST:
       return {

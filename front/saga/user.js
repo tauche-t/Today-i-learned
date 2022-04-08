@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CHANGE_NICKNAME_FAILURE, CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, LOAD_ME_FAILURE, LOAD_ME_REQUEST, LOAD_ME_SUCCESS, LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS } from "../reducer/user";
+import { CHANGE_NICKNAME_FAILURE, CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, LOAD_ME_FAILURE, LOAD_ME_REQUEST, LOAD_ME_SUCCESS, LOAD_USER_FAILURE, LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOG_IN_FAILURE, LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_OUT_FAILURE, LOG_OUT_REQUEST, LOG_OUT_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, SIGN_UP_SUCCESS } from "../reducer/user";
 import { all, fork, takeLatest, put, call } from 'redux-saga/effects';
 
 
@@ -64,7 +64,7 @@ function* logOut(action) {
 }
 
 function loadMeAPI() {
-  return axios.get('/user');
+  return axios.get('/user/me');
 }
 
 function* loadMe(action) {
@@ -78,6 +78,26 @@ function* loadMe(action) {
     console.error(error);
     yield put({
       type: LOAD_ME_FAILURE,
+      data: error.response.data,
+    });
+  }
+}
+
+function loadUserAPI() {
+  return axios.get('/user');
+}
+
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI, action.data);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: LOAD_USER_FAILURE,
       data: error.response.data,
     });
   }
@@ -115,8 +135,12 @@ function* watchLogout() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
 
-function* watchLoadUser() {
+function* watchLoadMe() {
   yield takeLatest(LOAD_ME_REQUEST, loadMe);
+}
+
+function* watchLoadUser() {
+  yield takeLatest(LOAD_USER_REQUEST, loadUser);
 }
 
 function* watchChangeNickname() {
@@ -128,6 +152,7 @@ export default function* userSaga() {
     fork(watchSignup),
     fork(watchLogin),
     fork(watchLogout),
+    fork(watchLoadMe),
     fork(watchLoadUser),
     fork(watchChangeNickname),
   ]);

@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import PostForm from '../components/PostForm';
 import PostContents from '../components/PostContents';
 import Profile from '../components/Profile';
-import { LOAD_ME_REQUEST, LOG_OUT_REQUEST } from '../reducer/user';
+import { LOAD_ME_REQUEST, LOAD_USER_REQUEST, LOG_OUT_REQUEST } from '../reducer/user';
 import { LOAD_POSTS_REQUEST } from '../reducer/post';
+import UserMembers from '../components/UserMembers';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -37,6 +38,12 @@ const Col = styled.div`
   height: 100%;
   margin: 0 25px;
   margin-top: ${props => props.wide && '56px'};
+
+  .memberTitle {
+    margin-top: 54px;
+    font-size: 22px;
+    color: #343a40;
+  }
 `;
 
 const Logo = styled.h1`
@@ -62,11 +69,9 @@ const SignBtn = styled.div`
 `;
 
 const Home = () => {
-  const { me } = useSelector(state => state.user);
-  const { mainPosts } = useSelector(state => state.post);
+  const { me, users } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const { loadPostsLoading } = useSelector(state => state.post);
-  const { hasMorePost, toDos } = useSelector(state => state.post);
+  const { mainPosts, hasMorePost, toDos, loadPostsLoading } = useSelector(state => state.post);
 
   useEffect(() => {
     if(hasMorePost) {
@@ -74,6 +79,10 @@ const Home = () => {
         type: LOAD_POSTS_REQUEST,
       });
     }
+
+    dispatch({
+      type: LOAD_USER_REQUEST,
+    });
 
     dispatch({
       type: LOAD_ME_REQUEST,
@@ -99,6 +108,8 @@ const Home = () => {
     }
   }, [hasMorePost, loadPostsLoading, mainPosts]);
 
+  console.log(users);
+
   return (
     <Wrapper>
       <Row>
@@ -117,10 +128,17 @@ const Home = () => {
             <PostContents key={post.id} post={post} />
           ))}
         </Col>
-        <Col></Col>
+        <Col>
+          <h2 className="memberTitle">스터디에 참여해주신 분들</h2>
+          { users?.map((members, i) => (
+            <UserMembers key={members.id} members={members} />
+          ))}
+        </Col>
       </Row>
     </Wrapper>
   );
 }
+
+
 
 export default Home;
