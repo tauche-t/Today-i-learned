@@ -7,6 +7,7 @@ import { FaCommentDots, FaRegCommentDots } from 'react-icons/fa';
 import { FiSend } from 'react-icons/fi';
 import CommentContents from '../CommentContents';
 import PostImages from '../PostImages';
+import ToDoContents from '../ToDoContents';
 
 const PostContents = ({ post }) => {
   const [comment, setComment] = useState(false);
@@ -57,14 +58,6 @@ const PostContents = ({ post }) => {
 
   // console.log(post.content.split(/\r\n|\r\n/).join("<br />"));
 
-  const onClickToDo = useCallback((e) => {
-    // setComplete(prev => !prev);
-    // console.log(e.target.attributes.getNamedItem('done').value);
-
-
-    e.target.classList.toggle('complete');
-  }, [complete]);
-
   return (
     <Wrapper>
       <Post>
@@ -85,8 +78,8 @@ const PostContents = ({ post }) => {
             <p className='contents'>{post.content}</p>
           ) : (
             <ToDos>
-              {JSON.parse(post.todos).map((v, i) => (
-                <li onClick={onClickToDo} key={v + i}>{v}</li>
+              {JSON.parse(post.todos).map((todo, i) => (
+                <ToDoContents key={todo + i} todo={todo} />
               ))}
             </ToDos>
           )}
