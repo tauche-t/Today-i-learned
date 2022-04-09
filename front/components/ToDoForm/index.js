@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_POST_REQUEST, ADD_TODO_REQUEST } from '../../reducer/post';
+import { ToDoWrap } from './style';
 
 
 const ToDoForm = ({ open }) => {
@@ -41,7 +42,7 @@ const ToDoForm = ({ open }) => {
   }, [toDo, imagePaths]);
 
   return (
-    <div>
+    <ToDoWrap>
       <form onSubmit={onSubmitToDo}>
         <input value={toDoText} onChange={onChangeToDo} />
         <button type="submit">추가</button>
@@ -53,8 +54,8 @@ const ToDoForm = ({ open }) => {
         ))}
       </ul>
 
-      <button onClick={onClickConfirm}>완료</button>
-    </div>
+      <button onClick={onClickConfirm} className="doneBtn">완료</button>
+    </ToDoWrap>
   );
 }
 

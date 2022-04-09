@@ -71,6 +71,13 @@ export const BtnWrap = styled.div`
   display: flex;
   justify-content: end;
 
+  .commentsLength {
+    font-size: 15px;
+    color: #868e96;
+    margin-right: 10px;
+    margin-top: 2px;
+  }
+
   button {
     border: 0;
     outline: 0;
@@ -142,10 +149,10 @@ export const Comment = styled.div`
 
 export const ToDos = styled.ul`
   list-style: none;
-  padding-left: 30px;
+  padding-left: 0;
   margin-top: 25px;
 
-  li {
+  /* li {
     position: relative;
     margin-bottom: 20px;
     cursor: pointer;
@@ -169,5 +176,5 @@ export const ToDos = styled.ul`
         background: #74c0fc;
       }
     }
-  }
+  } */
 `;

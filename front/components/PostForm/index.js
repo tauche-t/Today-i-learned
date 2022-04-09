@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Form, Textarea } from "./style";
+import { Form, Preview, PreviewImgWrap, Textarea } from "./style";
 import useInput from '../../hooks/useInput';
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducer/post';
 import { FiSend, FiImage } from 'react-icons/fi';
+import { AiFillDelete } from 'react-icons/ai';
 
-const PostForm = () => {
+const PostForm = ({ open }) => {
   const [text, setText] = useState("");
   const imageInput = useRef(null);
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ const PostForm = () => {
       type: ADD_POST_REQUEST,
       data: formData,
     });
+
+    open(false);
   }, [text, imagePaths]);
 
   const onChangeImages = useCallback((e) => {
@@ -77,18 +80,18 @@ const PostForm = () => {
       <div>
         <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
         <button onClick={onClickImageUpload} className="imageUploadBtn"><FiImage /></button>
-        <button type="submit" className={ focus ? "focus" : "" }><FiSend /></button>
+        <button type="submit" className={ focus ? "focus sendBtn" : "sendBtn" }><FiSend /></button>
       </div>
-      <div>
+      <PreviewImgWrap>
         {imagePaths.map((v, i) => (
-          <div key={v}>
+          <Preview key={v}>
             <img src={`http://localhost:3065/${v}`} alt={v} />
             <div>
-              <button onClick={onRemoveImage(i)}>제거</button>
+              <button onClick={onRemoveImage(i)} className="removeBtn"><AiFillDelete /></button>
             </div>
-          </div>
+          </Preview>
         ))}
-      </div>
+      </PreviewImgWrap>
     </Form>
   );
 }

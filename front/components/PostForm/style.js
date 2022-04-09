@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 export const Form = styled.form`
   width: 100%;
+  height: 230px;
   position: relative;
 
-  button {
+  button.sendBtn {
     width: 30px;
     height: 30px;
     position: absolute;
     right: 15px;
-    bottom: 15px;
+    bottom: 91px;
     border: 0;
     outline: 0;
     background: #d0ebff;
@@ -21,19 +22,25 @@ export const Form = styled.form`
     align-items: center;
     cursor: pointer;
 
-    &.imageUploadBtn {
-      position: absolute;
-      left: 14px;
-      bottom: 10px;
-      background: none;
-      color: #343a40;
-      font-size: 24px;
-    }
-
     &.focus {
       background: #4dabf7;
     }
   }
+
+  
+  button.imageUploadBtn {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 14px;
+      bottom: 84px;
+      border: 0;
+      outline: 0;
+      background: none;
+      color: #343a40;
+      font-size: 20px;
+      cursor: pointer;
+    }
 `;
 
 export const Textarea = styled.textarea`
@@ -46,4 +53,32 @@ export const Textarea = styled.textarea`
   padding: 10px 15px;
   overflow-y: hidden;
   border-radius: 4px;
+`;
+
+export const PreviewImgWrap = styled.div`
+  display: flex;
+`;
+
+export const Preview = styled.div`
+  width: 80px;
+  display: flex;
+  align-items: end;
+  margin-right: 30px;
+
+  img {
+    max-width: 100%;
+  }
+
+  button.removeBtn {
+    border: 0;
+    outline: 0;
+    color: #dee2e6;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+
+    &:hover {
+      color: #adb5bd;
+    }
+  }
 `;

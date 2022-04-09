@@ -134,6 +134,7 @@ export const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 200;
 
   .close {
     color: #fff;
@@ -155,7 +156,7 @@ export const FormBox = styled.div`
   box-sizing: border-box;
   padding: 0 55px;
   border-radius: 10px;
-  animation: ${animation} 0.7s 1;
+  animation: ${animation} 0.5s 1;
 
   .cancel {
     border: 2px solid #ffa8a8;

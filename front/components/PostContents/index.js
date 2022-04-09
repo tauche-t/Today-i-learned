@@ -85,6 +85,7 @@ const PostContents = ({ post }) => {
           )}
 
           <BtnWrap>
+            <span className="commentsLength">{post.Comments?.length}개의 댓글</span>
             <button className="commentIcon" onClick={onClickComment}>
               { comment ? <FaCommentDots /> : <FaRegCommentDots />}
             </button>

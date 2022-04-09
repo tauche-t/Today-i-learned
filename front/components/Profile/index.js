@@ -84,7 +84,7 @@ const Profile = () => {
       { writeOpen ? (
         <Overlay>
           <FormBox>
-            <PostForm />
+            <PostForm open={setWriteOpen} />
             <div className="cancel" onClick={onClickCancel}>취소</div>
           </FormBox>
         </Overlay>
