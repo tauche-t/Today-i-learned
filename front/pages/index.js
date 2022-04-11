@@ -18,6 +18,10 @@ const Wrapper = styled.div`
   padding: 50px 100px;
   position: relative;
 
+  @media screen and (max-width: 1540px) {
+    padding: 50px 80px;
+  }
+
   &:before {
     content: '';
     display: block;
@@ -34,6 +38,12 @@ const Row = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+
+  .m-none {
+    @media screen and (max-width: 1340px) {
+      display: none;
+    }
+  }
 `;
 
 const Col = styled.div`
@@ -44,8 +54,15 @@ const Col = styled.div`
 
   .memberTitle {
     margin-top: 54px;
-    font-size: 22px;
+    font-size: 20px;
     color: #343a40;
+
+    @media screen and (min-width: 1341px) and (max-width: 1540px) {
+      font-size: 18px;
+    }
+    @media screen and (max-width: 1340px) {
+      display: none;
+    }
   }
 `;
 
@@ -131,7 +148,7 @@ const Home = () => {
             <PostContents key={post.id} post={post} />
           ))}
         </Col>
-        <Col>
+        <Col className="m-none">
           <h2 className="memberTitle">스터디에 참여해주신 분들</h2>
           { users?.map((members, i) => (
             <UserMembers key={members.id} members={members} />

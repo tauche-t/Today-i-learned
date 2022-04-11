@@ -91,7 +91,7 @@ export const WriteBtn = styled.div`
     border: 0;
     outline: 0;
     background: none;
-    font-size: 14px;
+    font-size: 13px;
     padding: 5px 20px;
     border: 1px solid #339af0;
     border-radius: 35px;
@@ -109,6 +109,18 @@ export const WriteBtn = styled.div`
     left: 53%;
     transform: translateX(-50%);
     top: 7px;
+  }
+
+  /* @media screen and (min-width: 1025px) and (max-width: 1320px) {
+    max-width: 1024px;
+  } */
+  @media screen and (max-width: 1650px) {
+    display: block;
+
+    button {
+      margin: 30px auto;
+      display: block;
+    }
   }
 `;
 

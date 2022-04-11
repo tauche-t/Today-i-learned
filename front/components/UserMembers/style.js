@@ -5,6 +5,10 @@ export const Member = styled.div`
   display: flex;
   margin-bottom: 20px;
   align-items: center;
+
+  @media screen and (max-width: 1340px) {
+    display: none;
+  }
 `;
 
 export const MemberProfile = styled.div`
@@ -22,4 +26,8 @@ export const MemberProfile = styled.div`
 export const MemberName = styled.div`
   font-size: 17px;
   font-weight: 700;
+
+  @media screen and (max-width: 1540px) {
+    font-size: 15px;
+  }
 `;
