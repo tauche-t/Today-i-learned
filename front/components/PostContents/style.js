@@ -41,7 +41,21 @@ export const PostCon = styled.div`
 
     .userEmail {
       font-size: 14px;
-      color: #a2a7ad;
+      color: #737474;
+    }
+
+    .date {
+      float: right;
+      font-size: 14px;
+      margin-left: 10px;
+      color: #878c93;
+      margin-top: 3px;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
     }
   }
 

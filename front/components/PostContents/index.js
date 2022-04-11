@@ -8,6 +8,9 @@ import { FiSend } from 'react-icons/fi';
 import CommentContents from '../CommentContents';
 import PostImages from '../PostImages';
 import ToDoContents from '../ToDoContents';
+import moment from 'moment';
+
+moment.locale('ko');
 
 const PostContents = ({ post }) => {
   const [comment, setComment] = useState(false);
@@ -66,6 +69,7 @@ const PostContents = ({ post }) => {
           <div className="userInfo">
             <span className='userNickname'>{ post.User.nickname }</span>
             <span className='userEmail'>{ `@${post.User.email.split('@')[0]}` }</span>
+            <span className="date">{moment(post.createdAt).startOf('hour').fromNow()}</span>
           </div>
           { post.Images[0] &&
             <div className='postImg'>
