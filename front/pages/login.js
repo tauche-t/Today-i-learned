@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../../hooks/useInput';
-import { LOG_IN_REQUEST } from '../../reducer/user';
+import useInput from '../hooks/useInput';
+import { LOG_IN_REQUEST } from '../reducer/user';
 // import { Form, LeftBox, RightBox, SignBox, SignBtn, Wrapper } from './style';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import styled from 'styled-components';
@@ -172,7 +172,7 @@ const LogIn = () => {
             </div>
             
             <SignBtn>
-              <Link href="/signUp"><a>Sign Up</a></Link>
+              <Link href="/signup"><a>Sign Up</a></Link>
               <button type="submit">Log In <BiRightArrowAlt /></button>
             </SignBtn>
             <Link href="/"><a>돌아가기</a></Link>

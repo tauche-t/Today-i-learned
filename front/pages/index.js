@@ -137,8 +137,8 @@ const Home = () => {
           <Logo>Today I learned</Logo>
           { me ? <Profile /> : (
             <SignBtn>
-              <Link href="/signUp"><a>Sign Up</a></Link>
-              <Link href="/logIn"><a>Sign In</a></Link>
+              <Link href="/signup"><a>Sign Up</a></Link>
+              <Link href="/login"><a>Sign In</a></Link>
             </SignBtn>
           )}
         </Col>

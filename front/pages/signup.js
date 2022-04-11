@@ -2,8 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useInput from '../../hooks/useInput';
-import { SIGN_UP_REQUEST } from "../../reducer/user";
+import useInput from '../hooks/useInput';
+import { SIGN_UP_REQUEST } from "../reducer/user";
 // import { BtnInfo, Form, SignBox, Wrapper } from "./style";
 import { BiRightArrowAlt } from 'react-icons/bi';
 import styled from 'styled-components';
@@ -109,7 +109,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if(signUpDone) {
-      router.replace('/logIn');
+      router.replace('/login');
       alert('가입을 축하드립니다!');
     }
   }, [signUpDone]);
