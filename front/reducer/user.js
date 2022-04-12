@@ -115,6 +115,7 @@ const userReducer = (state = initialState, action) => {
         loadMeError: null,
       }
     case LOAD_ME_SUCCESS:
+      console.log('LOAD_ME', action.data);
       return {
         ...state,
         loadMeLoading: false,
