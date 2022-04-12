@@ -59,7 +59,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         signUpLoading: false,
         signUpDone: true,
-        users: action.data,
+        users: [action.data, ...state.mainPosts],
       }
     case SIGN_UP_FAILURE:
       return {
