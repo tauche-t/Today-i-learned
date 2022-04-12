@@ -44,7 +44,12 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   saveUninitialized: false,
   resave: false,
-  secret: process.env.COOKIE_SECRET
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    domain: process.env.NODE_ENV === 'production' && '.hummingbird.kr'
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,6 +66,6 @@ app.use('/', (req, res) => {
   res.send('hello express');
 });
 
-app.listen(3065, () => {
+app.listen(80, () => {
   console.log('서버 실행 중');
 });

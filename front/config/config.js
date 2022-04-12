@@ -1,1 +1,1 @@
-export const backUrl = 'http://3.38.183.130';
+export const backUrl = 'http://api.hummingbird.kr/';
