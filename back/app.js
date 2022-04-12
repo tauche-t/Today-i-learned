@@ -42,6 +42,10 @@ const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const postsRouter = require('./routes/posts');
 
+app.use('/', (req, res) => {
+  res.send('hello express');
+});
+
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/posts', postsRouter);
