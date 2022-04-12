@@ -5,6 +5,9 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const db = require('./models');
 const path = require('path');
+const hpp = require('hpp');
+const morgan = require('morgan');
+const helmet = require('helmet');
 
 const passportConfig = require('./passport');
 
@@ -19,6 +22,14 @@ db.sequelize.sync().then(() => {
 }).catch(console.error);
 
 passportConfig();
+
+if(process.env.NODE.ENV === 'production') {
+  app.use(morgan('combined'));
+  app.use(hpp());
+  app.use(helmet());
+}else{
+  app.use(morgan('dev'));
+}
 
 app.use(cors({
   origin: true,
