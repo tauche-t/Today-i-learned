@@ -86,7 +86,7 @@ const PostForm = ({ open }) => {
       <PreviewImgWrap>
         {imagePaths.map((v, i) => (
           <Preview key={v}>
-            <img src={`${backUrl}/${v}`} alt={v} />
+            <img src={v} alt={v} />
             <div>
               <button onClick={onRemoveImage(i)} className="removeBtn"><AiFillDelete /></button>
             </div>
