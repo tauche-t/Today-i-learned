@@ -71,7 +71,7 @@ const Profile = () => {
               <button type="submit" className="modifyConfirmBtn">수정</button>
             </form>
           ) : <MyNickname>{ me.nickname }</MyNickname> }
-          {/* <MyEmail>{ `@${me.email.split('@')[0]}` }</MyEmail> */}
+          <MyEmail>{ `@${me.email.split('@')[0]}` }</MyEmail>
         </div>
         <button className="modify" onClick={onChangeNickname}><BiPencil /></button>
       </InfoWrap>
