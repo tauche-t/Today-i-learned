@@ -82,7 +82,7 @@ const PostContents = ({ post }) => {
             <p className='contents'>{post.content}</p>
           ) : (
             <ToDos>
-              {JSON.parse(post.todos).map((todo, i) => (
+              {JSON.parse(post.todos)?.map((todo, i) => (
                 <ToDoContents key={todo + i} todo={todo} />
               ))}
             </ToDos>
