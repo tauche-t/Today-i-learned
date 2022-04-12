@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import { SlideWrap } from "./style";
 import Slider from "react-slick";
 import { AiOutlineClose } from 'react-icons/ai';
+import { backUrl } from "../../config/config";
 
 const settings = {
   dots: true,
@@ -34,7 +35,7 @@ const ImagesZoom = ({ images, onClose }) => {
       <Slider {...settings}>
         {images.map((v) => (
           <div key={v.src}>
-            <img src={`http://localhost:3065/${v.src}`} alt={v.src} />
+            <img src={`${backUrl}/${v.src}`} alt={v.src} />
           </div>
         ))}
       </Slider>

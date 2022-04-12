@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducer/post';
 import { FiSend, FiImage } from 'react-icons/fi';
 import { AiFillDelete } from 'react-icons/ai';
+import { backUrl } from "../../config/config";
 
 const PostForm = ({ open }) => {
   const [text, setText] = useState("");
@@ -85,7 +86,7 @@ const PostForm = ({ open }) => {
       <PreviewImgWrap>
         {imagePaths.map((v, i) => (
           <Preview key={v}>
-            <img src={`http://localhost:3065/${v}`} alt={v} />
+            <img src={`${backUrl}/${v}`} alt={v} />
             <div>
               <button onClick={onRemoveImage(i)} className="removeBtn"><AiFillDelete /></button>
             </div>
