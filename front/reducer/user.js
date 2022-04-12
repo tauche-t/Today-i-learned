@@ -1,5 +1,5 @@
 const initialState = {
-  users: [],
+  users: null,
   me: null,
   signUpLoading: false,
   signUpDone: false,
@@ -59,7 +59,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         signUpLoading: false,
         signUpDone: true,
-        users: [action.data, ...state.mainPosts],
+        users: action.data,
       }
     case SIGN_UP_FAILURE:
       return {
