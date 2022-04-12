@@ -150,9 +150,9 @@ const Home = () => {
         </Col>
         <Col className="m-none">
           <h2 className="memberTitle">스터디에 참여해주신 분들</h2>
-          { users?.map((members, i) => (
+          {/* { users?.map((members, i) => (
             <UserMembers key={members.id} members={members} />
-          ))}
+          ))} */}
         </Col>
       </Row>
     </Wrapper>
