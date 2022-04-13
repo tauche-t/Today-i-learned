@@ -1,6 +1,6 @@
 # Today-i-learned
 
-[Link](http://hummingbird.kr/)
+[바로가기](http://hummingbird.kr/)
 ![today-i-learned-main](https://user-images.githubusercontent.com/91449200/163106065-1d39c462-958f-473f-9f8e-cd1e7c983c0b.PNG)
 
 사람들이 서로 어떤 공부를 하고 공부한 내용을 공유하는 Today-i-learned 웹사이트입니다.
