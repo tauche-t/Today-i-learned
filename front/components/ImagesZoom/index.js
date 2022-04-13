@@ -35,7 +35,7 @@ const ImagesZoom = ({ images, onClose }) => {
       <Slider {...settings}>
         {images.map((v) => (
           <div key={v.src}>
-            <img src={v} alt={v.src} />
+            <img src={`${v.src.replace(/\/thumb\//, '/original/')}`} alt={v.src} />
           </div>
         ))}
       </Slider>
